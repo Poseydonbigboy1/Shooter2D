@@ -1,4 +1,7 @@
 extends Planer
+
+signal died(score)
+
 # Speed is now controlled by config, not exported
 var speed = 300
 @export var bullet: PackedScene
@@ -63,7 +66,13 @@ func start_burst():
 	is_shooting_burst = false
 	burst_timer = 0.0
 	
+func calculate_score() -> int:
+	# Formula to calculate score based on enemy stats
+	var score = (speed * 0.1) + (shots_per_burst * 5) + ((1.0 / burst_cooldown) * 10)
+	return int(score)
+
 func die():
+	emit_signal("died", calculate_score())
 	queue_free()
 
 func _physics_process(delta):
@@ -73,4 +82,5 @@ func _physics_process(delta):
 		path_follower.progress += speed * delta
 		
 		if path_follower.progress_ratio >= 1.0:
-			die()
+			# Enemy that flies away gives no score and doesn't emit the died signal
+			queue_free()

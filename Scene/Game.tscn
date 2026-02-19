@@ -78,6 +78,14 @@ theme_override_font_sizes/font_size = 50
 text = "HP"
 script = SubResource("GDScript_6igcf")
 
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=410127861]
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 450.0
+offset_bottom = 150.0
+theme_override_font_sizes/font_size = 50
+text = "Score: 0"
+
 [node name="Heart" type="Sprite2D" parent="." unique_id=1857885236]
 position = Vector2(49.999996, 1884)
 scale = Vector2(0.38125, 0.38125)

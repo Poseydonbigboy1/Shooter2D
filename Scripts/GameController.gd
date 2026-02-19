@@ -4,9 +4,11 @@ extends Node2D
 @export var available_paths: Array[Path2D]
 @export var PlayerScene: PackedScene
 @onready var PlayerSpawnMarker = $PlayerSpawn
+@onready var score_label = $CanvasLayer/ScoreLabel
 
 var level_generator = LevelGenerator.new()
 var enemies_alive = 0 # Счетчик живых врагов
+var score = 0
 
 func _ready() -> void:
 	add_child(level_generator)
@@ -17,6 +19,7 @@ func _ready() -> void:
 	Player.global_position = PlayerSpawnMarker.global_position
 	get_tree().current_scene.add_child(Player)
 	
+	update_score_label()
 	start_next_wave()
 
 func spawn_enemy(enemy_config: Dictionary):
@@ -31,11 +34,19 @@ func spawn_enemy(enemy_config: Dictionary):
 	
 	# Pass the config to the enemy
 	enemy.set_config(enemy_config)
+	enemy.died.connect(_on_enemy_died)
 	
 	follower.add_child(enemy)
 	enemy.position = Vector2.ZERO
 	enemies_alive += 1
 	enemy.tree_exited.connect(_on_enemy_exited)
+
+func _on_enemy_died(points: int):
+	score += points
+	update_score_label()
+
+func update_score_label():
+	score_label.text = "Score: " + str(score)
 
 func _on_enemy_exited():
 	enemies_alive -= 1
@@ -47,6 +58,7 @@ func _on_enemy_exited():
 			start_timer_for_next_wave()
 		else:
 			print("Все волны пройдены! Победа!")
+			get_node("/root/ScoreManager").add_score(score)
 
 func start_timer_for_next_wave():
 	if is_inside_tree():
