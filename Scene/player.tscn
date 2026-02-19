@@ -46,7 +46,7 @@ position = Vector2(3, -35)
 shape = SubResource("CapsuleShape2D_ivevv")
 
 [node name="MLeft" type="Marker2D" parent="." unique_id=377200392]
-position = Vector2(-8, -198)
+position = Vector2(-27, -200)
 
 [node name="MRight" type="Marker2D" parent="." unique_id=1569071096]
-position = Vector2(52, -197)
+position = Vector2(32, -200)

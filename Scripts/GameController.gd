@@ -4,6 +4,7 @@ extends Node2D
 @export var available_paths: Array[Path2D]
 @export var PlayerScene: PackedScene
 @onready var PlayerSpawnMarker = $PlayerSpawn
+@onready var game_over_screen = $GameOver # РОМА
 
 
 var current_wave = 0
@@ -46,6 +47,10 @@ func _ready() -> void:
 	Player.global_position = PlayerSpawnMarker.global_position
 	get_tree().current_scene.add_child(Player)
 	start_next_wave()
+	game_over_screen.hide() # РОМА
+func show_game_over():
+	game_over_screen.show()
+	get_tree().paused = true # РОМА
 func start_next_wave():
 	current_wave += 1
 	# Формула количества: n + 1 (если волна 1 -> 2 врага, волна 2 -> 3 врага)
@@ -64,3 +69,8 @@ func start_next_wave():
 	
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_return_pressed() -> void: #РОМА
+	get_tree().paused = false # РОМА
+	get_tree().reload_current_scene() # РОМА

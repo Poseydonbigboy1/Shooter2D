@@ -42,4 +42,7 @@ func _process(delta: float) -> void:
 		shoot(RightMuzzle)
 		lastShoot = 0.0
 func die():
-	pass
+	var controller = get_tree().current_scene 
+	if controller.has_method("show_game_over"):
+		controller.show_game_over()
+	queue_free() # Удаляем игрока

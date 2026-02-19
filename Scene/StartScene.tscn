@@ -22,25 +22,25 @@ texture = ExtResource("1_4vj8e")
 
 [node name="ButtonQuit" type="TextureButton" parent="." unique_id=870600119]
 layout_mode = 0
-offset_left = 319.0
-offset_top = 973.0
-offset_right = 793.0
-offset_bottom = 1246.9885
+offset_left = 393.0
+offset_top = 1144.0
+offset_right = 688.81006
+offset_bottom = 1314.9885
 texture_normal = ExtResource("3_72amt")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton" type="TextureButton" parent="." unique_id=1877791835]
+[node name="ButtonStart" type="TextureButton" parent="." unique_id=1877791835]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 26.998001
 anchor_bottom = 48.001003
-offset_left = 319.0
-offset_top = 494.0
-offset_right = -285.0254
-offset_bottom = -1152.0402
+offset_left = 299.0
+offset_top = 834.0
+offset_right = -305.0254
+offset_bottom = -812.04016
 texture_normal = ExtResource("5_72amt")
 stretch_mode = 0
 
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="ButtonStart" to="." method="_on_texture_button_pressed"]

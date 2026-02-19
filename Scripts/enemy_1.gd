@@ -2,7 +2,7 @@ extends Planer
 @export var speed = 300
 @export var bullet: PackedScene
 @onready var anim = $AnimatedSprite2D
-@export var shoot_speed = 0.2
+@export var shoot_speed = 0.8
 @onready var MuzzleLeft= $MuzzleLeft
 @onready var MuzzleRight = $MuzzleRight
 var lastshoot = 0.0

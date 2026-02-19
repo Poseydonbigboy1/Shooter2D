@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://powvmtepwyil" path="res://Img/Background/загруженное.png" id="2_ou18a"]
 [ext_resource type="PackedScene" uid="uid://cgwdni2hvw1ua" path="res://Scene/enemy_1.tscn" id="2_u6khg"]
 [ext_resource type="Texture2D" uid="uid://bclk2pfbbkld6" path="res://Img/UI/ХП-0004.png" id="4_mopgc"]
+[ext_resource type="Texture2D" uid="uid://b7jd188ana4kf" path="res://Img/Buttons/Снова-0001.png" id="6_3xgnh"]
 
 [sub_resource type="GDScript" id="GDScript_ou18a"]
 script/source = "extends ParallaxBackground
@@ -55,9 +56,9 @@ texture = ExtResource("2_ou18a")
 
 [node name="Enemy" type="Node2D" parent="." unique_id=373964826]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=217550325]
+[node name="Здоровье" type="CanvasLayer" parent="." unique_id=217550325]
 
-[node name="Health" type="Label" parent="CanvasLayer" unique_id=410127860]
+[node name="Health" type="Label" parent="Здоровье" unique_id=410127860]
 offset_left = 103.000015
 offset_top = 1830.0004
 offset_right = 507.0
@@ -75,16 +76,6 @@ texture = ExtResource("4_mopgc")
 visible = false
 position = Vector2(534, 1718)
 
-[node name="GameOver" type="Label" parent="." unique_id=936994262]
-visible = false
-offset_left = 260.0
-offset_top = 856.0
-offset_right = 803.0
-offset_bottom = 1109.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 100
-text = "Game Over"
-
 [node name="Paths" type="Node2D" parent="." unique_id=62409639]
 
 [node name="Path2D" type="Path2D" parent="Paths" unique_id=1481205841]
@@ -98,3 +89,33 @@ rotation = 1.545367
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=285188848]
 position = Vector2(542, 1751)
+
+[node name="GameOver" type="CanvasLayer" parent="." unique_id=576454071]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver" unique_id=2079006795]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -271.5
+offset_top = -200.5
+offset_right = 271.5
+offset_bottom = 200.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GameOver" type="Label" parent="GameOver/VBoxContainer" unique_id=936994262]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "Game Over"
+
+[node name="Return" type="TextureButton" parent="GameOver/VBoxContainer" unique_id=1975600519]
+process_mode = 3
+layout_mode = 2
+texture_normal = ExtResource("6_3xgnh")
+
+[connection signal="pressed" from="GameOver/VBoxContainer/Return" to="." method="_on_return_pressed"]

@@ -4,7 +4,7 @@ extends Area2D
 @onready var anim2 = $AnimatedSprite2Dtype2
 var direction = 1
 var shooter: Node2D
-var damage = 60
+var damage = 15
 #@export var sprite: Texture2D
 #@export var direction = Vector2.UP 
 # Called when the node enters the scene tree for the first time.
