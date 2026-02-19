@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cujdoj4cdwv58"]
+
+[ext_resource type="PackedScene" uid="uid://djl6hkoin02b5" path="res://Scene/player.tscn" id="1_6igcf"]
+[ext_resource type="Script" uid="uid://7g0gv4fk0446" path="res://Scripts/GameController.gd" id="1_ivtx6"]
+[ext_resource type="Texture2D" uid="uid://powvmtepwyil" path="res://Img/Background/загруженное.png" id="2_ou18a"]
+[ext_resource type="PackedScene" uid="uid://cgwdni2hvw1ua" path="res://Scene/enemy_1.tscn" id="2_u6khg"]
+[ext_resource type="Texture2D" uid="uid://bclk2pfbbkld6" path="res://Img/UI/ХП-0004.png" id="4_mopgc"]
+
+[sub_resource type="GDScript" id="GDScript_ou18a"]
+script/source = "extends ParallaxBackground
+
+@export var scroll_speed = 100.0
+
+func _process(delta: float) -> void:
+	# Двигаем смещение фона вниз
+	scroll_offset.y += scroll_speed * delta
+"
+
+[sub_resource type="GDScript" id="GDScript_6igcf"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	text = \"HP: \" + str($\"../../Player\".health)
+"
+
+[sub_resource type="Curve2D" id="Curve2D_3xgnh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 373.30768, -350.49628, 0, 0, 0, 0, 381.2051, -39.999985, 0, 0, 0, 0, 692.07684, 29.338379, 0, 0, 0, 0, 522.641, 151.44368, 0, 0, 0, 0, -26.58963, 146.64668)
+}
+point_count = 5
+
+[node name="Game" type="Node2D" unique_id=1620219483 node_paths=PackedStringArray("available_paths")]
+script = ExtResource("1_ivtx6")
+enemy_scene = ExtResource("2_u6khg")
+available_paths = [NodePath("Paths/Path2D")]
+PlayerScene = ExtResource("1_6igcf")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1570107317]
+script = SubResource("GDScript_ou18a")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=607213419]
+motion_mirroring = Vector2(0, 1924.09)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1297967492]
+position = Vector2(540, 957.8334)
+scale = Vector2(0.94791675, 0.9405925)
+texture = ExtResource("2_ou18a")
+
+[node name="Enemy" type="Node2D" parent="." unique_id=373964826]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=217550325]
+
+[node name="Health" type="Label" parent="CanvasLayer" unique_id=410127860]
+offset_left = 103.000015
+offset_top = 1830.0004
+offset_right = 507.0
+offset_bottom = 2103.0005
+theme_override_font_sizes/font_size = 50
+text = "HP"
+script = SubResource("GDScript_6igcf")
+
+[node name="Heart" type="Sprite2D" parent="." unique_id=1857885236]
+position = Vector2(49.999996, 1884)
+scale = Vector2(0.38125, 0.38125)
+texture = ExtResource("4_mopgc")
+
+[node name="Player" parent="." unique_id=298989615 instance=ExtResource("1_6igcf")]
+visible = false
+position = Vector2(534, 1718)
+
+[node name="GameOver" type="Label" parent="." unique_id=936994262]
+visible = false
+offset_left = 260.0
+offset_top = 856.0
+offset_right = 803.0
+offset_bottom = 1109.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "Game Over"
+
+[node name="Paths" type="Node2D" parent="." unique_id=62409639]
+
+[node name="Path2D" type="Path2D" parent="Paths" unique_id=1481205841]
+position = Vector2(-148.96443, 438.72406)
+scale = Vector2(1.3928576, 2.293103)
+curve = SubResource("Curve2D_3xgnh")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Paths/Path2D" unique_id=2021876669]
+position = Vector2(373.30768, -350.49628)
+rotation = 1.545367
+
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=285188848]
+position = Vector2(542, 1751)

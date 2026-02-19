@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cgwdni2hvw1ua"]
+
+[ext_resource type="Script" uid="uid://b6njcj08dx48e" path="res://Scripts/enemy_1.gd" id="1_0kf6p"]
+[ext_resource type="Texture2D" uid="uid://bxk8lyh40wjh8" path="res://Img/Enemy/Самолёт-0001.png" id="1_jqg2b"]
+[ext_resource type="Texture2D" uid="uid://c1jwdj4wbqc7i" path="res://Img/Enemy/Самолёт-0002.png" id="2_0kf6p"]
+[ext_resource type="PackedScene" uid="uid://dt5ehreysd1jm" path="res://Scene/bullet_enemy.tscn" id="2_poh7c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_poh7c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jqg2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0kf6p")
+}],
+"loop": true,
+"name": &"fly_enemy",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jqg2b"]
+radius = 74.0
+height = 268.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1141031980]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_0kf6p")
+bullet = ExtResource("2_poh7c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=299081244]
+rotation = -3.1415927
+scale = Vector2(0.481617, 0.48161706)
+sprite_frames = SubResource("SpriteFrames_poh7c")
+animation = &"fly_enemy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=245389786]
+position = Vector2(-3, -14)
+shape = SubResource("CapsuleShape2D_jqg2b")
+
+[node name="MuzzleLeft" type="Marker2D" parent="." unique_id=1722347027]
+position = Vector2(43, 47)
+
+[node name="MuzzleRight" type="Marker2D" parent="." unique_id=899466593]
+position = Vector2(-48, 47)

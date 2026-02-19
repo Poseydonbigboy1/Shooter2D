@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://cw8njisq6tqp1"]
+
+[ext_resource type="Script" uid="uid://4xtxucc3nhhb" path="res://Scripts/bullet.gd" id="1_k7h5k"]
+[ext_resource type="Texture2D" uid="uid://bjri70dhdwgdt" path="res://Img/bullettype1/Спрайт-000ss1.png" id="2_pf58l"]
+[ext_resource type="Texture2D" uid="uid://0vpuw7c0thqo" path="res://Img/bullettype1/Спрайт-000ss2.png" id="3_4smue"]
+[ext_resource type="Texture2D" uid="uid://ba1bgihp326e5" path="res://Img/bullettype1/Спрайт-000ss3.png" id="4_g66oo"]
+[ext_resource type="Texture2D" uid="uid://cpo77ueccke3h" path="res://Img/bullettype1/Спрайт-000ss4.png" id="5_ed7he"]
+[ext_resource type="Texture2D" uid="uid://bjbp0f1xqj2y3" path="res://Img/bullettype1/Спрайт-000ss5.png" id="6_bn5pj"]
+[ext_resource type="Texture2D" uid="uid://bssii7g61jd0r" path="res://Img/bullettype1/Спрайт-000ss6.png" id="7_q356l"]
+[ext_resource type="Texture2D" uid="uid://7ucegfhd2xjg" path="res://Img/bullettype1/Спрайт-000ss7.png" id="8_abls3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4smue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pf58l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4smue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g66oo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ed7he")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_bn5pj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_q356l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_abls3")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 2.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g66oo"]
+radius = 12.0
+height = 66.0
+
+[node name="BulletPlayer" type="Area2D" unique_id=2048034539]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_k7h5k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=596673299]
+scale = Vector2(0.275, 0.275)
+sprite_frames = SubResource("SpriteFrames_4smue")
+animation = &"attack"
+autoplay = "attack"
+frame = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1554802483]
+position = Vector2(-20, 11)
+shape = SubResource("CapsuleShape2D_g66oo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

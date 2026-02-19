@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://djl6hkoin02b5"]
+
+[ext_resource type="Script" uid="uid://2bw2f0320rb" path="res://Scripts/player.gd" id="1_xa75v"]
+[ext_resource type="Texture2D" uid="uid://bxk8lyh40wjh8" path="res://Img/Самолёт-0001.png" id="1_y8w33"]
+[ext_resource type="PackedScene" uid="uid://cw8njisq6tqp1" path="res://Scene/bullet.tscn" id="2_58ae2"]
+[ext_resource type="Texture2D" uid="uid://c1jwdj4wbqc7i" path="res://Img/Самолёт-0002.png" id="2_xa75v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58ae2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y8w33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_xa75v")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ivevv"]
+radius = 68.0
+height = 274.0
+
+[node name="Player" type="CharacterBody2D" unique_id=298989615]
+script = ExtResource("1_xa75v")
+bullet = ExtResource("2_58ae2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1238338418]
+scale = Vector2(0.5875, 0.58749986)
+sprite_frames = SubResource("SpriteFrames_58ae2")
+animation = &"fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1828072243]
+position = Vector2(3, -35)
+shape = SubResource("CapsuleShape2D_ivevv")
+
+[node name="MLeft" type="Marker2D" parent="." unique_id=377200392]
+position = Vector2(-115, 36)
+
+[node name="MRight" type="Marker2D" parent="." unique_id=1569071096]
+position = Vector2(120, 35)
