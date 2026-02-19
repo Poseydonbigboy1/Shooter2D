@@ -4,11 +4,11 @@ extends Node2D
 @export var available_paths: Array[Path2D]
 @export var PlayerScene: PackedScene
 @onready var PlayerSpawnMarker = $PlayerSpawn
-@onready var game_over_screen = $GameOver # РОМА
+@onready var game_over_screen = $GameOver
 @onready var score_label = $UI/ScoreLabel
 
 var level_generator = LevelGenerator.new()
-var enemies_alive = 0 # Счетчик живых врагов
+var enemies_alive = 0
 var score = 0
 
 func _ready() -> void:
@@ -38,7 +38,6 @@ func spawn_enemy(enemy_config: Dictionary):
 	var enemy = enemy_scene.instantiate()
 	enemy.scale = Vector2(0.5 , 0.5)
 	
-	# Pass the config to the enemy
 	enemy.set_config(enemy_config)
 	enemy.died.connect(_on_enemy_died)
 	
@@ -65,7 +64,6 @@ func _on_enemy_exited():
 		else:
 			print("Все волны пройдены! Победа!")
 			ScoreManager.add_score(score)
-			# Wait 3 seconds and return to the main menu
 			await get_tree().create_timer(3.0).timeout
 			get_tree().change_scene_to_file("res://Scene/StartScene.tscn")
 
@@ -81,6 +79,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_return_pressed() -> void: #РОМА
-	get_tree().paused = false # РОМА
-	get_tree().reload_current_scene() # РОМА
+func _on_return_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()

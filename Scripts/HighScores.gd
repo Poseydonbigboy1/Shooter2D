@@ -6,7 +6,6 @@ func _ready():
 	display_scores()
 
 func display_scores():
-	# Clear previous scores
 	for child in score_container.get_children():
 		child.queue_free()
 
@@ -18,7 +17,7 @@ func display_scores():
 		var label = Label.new()
 		label.text = str(rank) + ". " + str(score_value)
 		label.add_theme_font_size_override("font_size", 60)
-		label.horizontal_alignment = 1 # Center alignment
+		label.horizontal_alignment = 1
 		score_container.add_child(label)
 
 func _on_back_button_pressed():

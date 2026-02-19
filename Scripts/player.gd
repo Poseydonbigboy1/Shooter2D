@@ -54,4 +54,4 @@ func take_damage(amount):
 
 func die():
 	emit_signal("died")
-	queue_free() # Удаляем игрока
+	queue_free()

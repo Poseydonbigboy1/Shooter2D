@@ -22,7 +22,6 @@ func load_scores():
 		else:
 			print("Error parsing scores.json: ", json.get_error_message())
 	else:
-		# If no file exists, create a default list
 		scores = []
 		for i in range(MAX_SCORES):
 			scores.append(0)
@@ -33,7 +32,7 @@ func save_scores():
 
 func add_score(new_score):
 	scores.append(new_score)
-	scores.sort_custom(func(a, b): return a > b) # Sort descending
+	scores.sort_custom(func(a, b): return a > b)
 	if scores.size() > MAX_SCORES:
 		scores.resize(MAX_SCORES)
 	save_scores()
