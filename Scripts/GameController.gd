@@ -59,6 +59,9 @@ func _on_enemy_exited():
 		else:
 			print("Все волны пройдены! Победа!")
 			get_node("/root/ScoreManager").add_score(score)
+			# Wait 3 seconds and return to the main menu
+			await get_tree().create_timer(3.0).timeout
+			get_tree().change_scene_to_file("res://Scene/StartScene.tscn")
 
 func start_timer_for_next_wave():
 	if is_inside_tree():
