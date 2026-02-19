@@ -28,8 +28,12 @@ func setAnimation(animationType: String):
 func set_speed(new_speed: float):
 	speedBullet = new_speed
 
-
-func _on_body_entered(area) -> void:
-	if area.has_method("take_damage"): #and area != shooter and shooter.is_in_group(""):
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("players"):
 		area.take_damage(damage)
+		queue_free()
+
+func _on_body_entered(body) -> void:
+	if body.has_method("take_damage"):
+		body.take_damage(damage)
 		queue_free()

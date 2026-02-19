@@ -5,7 +5,7 @@ extends Node2D
 @export var PlayerScene: PackedScene
 @onready var PlayerSpawnMarker = $PlayerSpawn
 @onready var game_over_screen = $GameOver # РОМА
-@onready var score_label = $CanvasLayer/ScoreLabel
+@onready var score_label = $UI/ScoreLabel
 
 var level_generator = LevelGenerator.new()
 var enemies_alive = 0 # Счетчик живых врагов
@@ -18,10 +18,15 @@ func _ready() -> void:
 	
 	var Player = PlayerScene.instantiate()
 	Player.global_position = PlayerSpawnMarker.global_position
+	Player.died.connect(show_game_over)
 	get_tree().current_scene.add_child(Player)
 	
 	update_score_label()
 	start_next_wave()
+
+func show_game_over():
+	game_over_screen.show()
+	get_tree().paused = true
 
 func spawn_enemy(enemy_config: Dictionary):
 	var choosen_path = available_paths.pick_random()
@@ -59,7 +64,7 @@ func _on_enemy_exited():
 			start_timer_for_next_wave()
 		else:
 			print("Все волны пройдены! Победа!")
-			get_node("/root/ScoreManager").add_score(score)
+			ScoreManager.add_score(score)
 			# Wait 3 seconds and return to the main menu
 			await get_tree().create_timer(3.0).timeout
 			get_tree().change_scene_to_file("res://Scene/StartScene.tscn")
@@ -69,12 +74,6 @@ func start_timer_for_next_wave():
 		await get_tree().create_timer(3.0).timeout
 		start_next_wave()
 
-
-func _ready() -> void:
-	var Player = PlayerScene.instantiate()
-	Player.global_position = PlayerSpawnMarker.global_position
-	get_tree().current_scene.add_child(Player)
-	start_next_wave()
 func start_next_wave():
 	level_generator.start_next_wave()
 	

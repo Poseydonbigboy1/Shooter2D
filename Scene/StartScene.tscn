@@ -13,46 +13,48 @@ offset_bottom = 40.0
 script = ExtResource("1_xs88s")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1349089228]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -66.0
 offset_top = -36.0
-offset_right = 1134.0
-offset_bottom = 2364.0
+offset_right = 1068.0
+offset_bottom = 2324.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_4vj8e")
 
-[node name="ButtonQuit" type="TextureButton" parent="." unique_id=870600119]
-layout_mode = 0
-offset_left = 393.0
-offset_top = 1144.0
-offset_right = 688.81006
-offset_bottom = 1314.9885
-texture_normal = ExtResource("3_72amt")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="ButtonStart" type="TextureButton" parent="." unique_id=1877791835]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 26.998001
-anchor_bottom = 48.001003
-offset_left = 299.0
-offset_top = 834.0
-offset_right = -305.0254
-offset_bottom = -812.04016
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 280.0
+offset_top = 700.0
+offset_right = 780.0
+offset_bottom = 1350.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="ButtonStart" type="TextureButton" parent="VBoxContainer" unique_id=1877791835]
+layout_mode = 2
+size_flags_vertical = 3
 texture_normal = ExtResource("5_72amt")
 stretch_mode = 0
 
-[node name="ButtonHighScores" type="TextureButton" parent="." unique_id=870600120]
-layout_mode = 0
-offset_left = 319.0
-offset_top = 730.0
-offset_right = 793.0
-offset_bottom = 1003.99
+[node name="ButtonHighScores" type="TextureButton" parent="VBoxContainer" unique_id=870600120]
+layout_mode = 2
+size_flags_vertical = 3
 texture_normal = ExtResource("5_72amt")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="ButtonHighScores"]
+[node name="Label" type="Label" parent="VBoxContainer/ButtonHighScores"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -60,9 +62,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -120.0
-offset_top = -40.0
+offset_top = -25.0
 offset_right = 120.0
-offset_bottom = 40.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
@@ -70,6 +72,13 @@ text = "High Scores"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]
-[connection signal="pressed" from="ButtonStart" to="." method="_on_texture_button_pressed"]
-[connection signal="pressed" from="ButtonHighScores" to="." method="_on_button_high_scores_pressed"]
+[node name="ButtonQuit" type="TextureButton" parent="VBoxContainer" unique_id=870600119]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("3_72amt")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonStart" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonHighScores" to="." method="_on_button_high_scores_pressed"]

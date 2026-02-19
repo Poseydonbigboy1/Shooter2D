@@ -1,5 +1,7 @@
 extends Planer
 
+signal died
+
 @export var bullet: PackedScene
 @export var shoot_speed = 0.2
 @export var bulletTexture: Texture2D
@@ -10,6 +12,7 @@ const SPEED = 900
 var lastShoot = 0.0
 func _ready():
 	set_collision_layer_value(1, true)
+	add_to_group("players")
 	
 	anim.play("fly")
 
@@ -25,6 +28,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += SPEED
 	velocity = velocity.normalized() * SPEED
 	move_and_slide()
+
 func shoot(Muzzle):
 	var newBullet = bullet.instantiate()
 	newBullet.direction = -1
@@ -35,14 +39,19 @@ func shoot(Muzzle):
 	newBullet.set_collision_mask_value(3, true)
 	get_parent().add_child(newBullet)
 	newBullet.setAnimation("1")
+
 func _process(delta: float) -> void:
 	lastShoot += delta
 	if lastShoot >= shoot_speed:
 		shoot(LeftMuzzle)
 		shoot(RightMuzzle)
 		lastShoot = 0.0
+
+func take_damage(amount):
+	health -= amount
+	if health <= 0:
+		die()
+
 func die():
-	var controller = get_tree().current_scene 
-	if controller.has_method("show_game_over"):
-		controller.show_game_over()
+	emit_signal("died")
 	queue_free() # Удаляем игрока

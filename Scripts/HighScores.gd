@@ -10,7 +10,7 @@ func display_scores():
 	for child in score_container.get_children():
 		child.queue_free()
 
-	var scores = get_node("/root/ScoreManager").get_scores()
+	var scores = ScoreManager.get_scores()
 	for i in range(scores.size()):
 		var rank = i + 1
 		var score_value = scores[i]
