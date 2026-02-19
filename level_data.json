@@ -1,20 +1,48 @@
 {
   "waves": [
 	{
-	  "enemy_count": 5,
-	  "spawn_delay": 0.5
+	  "enemy_count": 2,
+	  "spawn_delay": 1.0,
+	  "enemy_config": {
+		"shots_per_burst": 1,
+		"burst_cooldown": 2.0,
+		"fire_rate": 0.1,
+		"enemy_speed": 300,
+		"bullet_speed": 500
+	  }
 	},
 	{
 	  "enemy_count": 3,
-	  "spawn_delay": 1.0
+	  "spawn_delay": 1.0,
+	  "enemy_config": {
+		"shots_per_burst": 2,
+		"burst_cooldown": 1.5,
+		"fire_rate": 0.2,
+		"enemy_speed": 350,
+		"bullet_speed": 550
+	  }
 	},
 	{
 	  "enemy_count": 4,
-	  "spawn_delay": 0.8
+	  "spawn_delay": 0.8,
+	  "enemy_config": {
+		"shots_per_burst": 3,
+		"burst_cooldown": 2.5,
+		"fire_rate": 0.1,
+		"enemy_speed": 250,
+		"bullet_speed": 600
+	  }
 	},
 	{
 	  "enemy_count": 5,
-	  "spawn_delay": 0.5
+	  "spawn_delay": 0.5,
+	  "enemy_config": {
+		"shots_per_burst": 2,
+		"burst_cooldown": 1.0,
+		"fire_rate": 0.3,
+		"enemy_speed": 400,
+		"bullet_speed": 700
+	  }
 	}
   ]
 }

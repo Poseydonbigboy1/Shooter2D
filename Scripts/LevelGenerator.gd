@@ -6,7 +6,7 @@ var level_data: Dictionary
 var current_wave_index = 0
 
 signal wave_cleared
-signal spawn_enemy(choosen_path: Path2D)
+signal spawn_enemy(enemy_config: Dictionary)
 
 func load_level_data(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -28,7 +28,7 @@ func start_next_wave():
 func spawn_wave(wave_data: Dictionary):
 	print("Старт волны №", current_wave_index, ". Врагов: ", wave_data.enemy_count)
 	for i in range(wave_data.enemy_count):
-		emit_signal("spawn_enemy", null) # We let the GameController decide the path
+		emit_signal("spawn_enemy", wave_data.enemy_config)
 		await get_tree().create_timer(wave_data.spawn_delay).timeout
 
 func has_more_waves() -> bool:

@@ -19,9 +19,8 @@ func _ready() -> void:
 	
 	start_next_wave()
 
-func spawn_enemy(choosen_path: Path2D = null): # Path is now optional
-	if choosen_path == null:
-		choosen_path = available_paths.pick_random()
+func spawn_enemy(enemy_config: Dictionary):
+	var choosen_path = available_paths.pick_random()
 		
 	var follower = PathFollow2D.new()
 	follower.loop = false
@@ -29,6 +28,10 @@ func spawn_enemy(choosen_path: Path2D = null): # Path is now optional
 	choosen_path.add_child(follower)
 	var enemy = enemy_scene.instantiate()
 	enemy.scale = Vector2(0.5 , 0.5)
+	
+	# Pass the config to the enemy
+	enemy.set_config(enemy_config)
+	
 	follower.add_child(enemy)
 	enemy.position = Vector2.ZERO
 	enemies_alive += 1

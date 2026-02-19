@@ -1,12 +1,30 @@
 extends Planer
-@export var speed = 300
+# Speed is now controlled by config, not exported
+var speed = 300
 @export var bullet: PackedScene
 @onready var anim = $AnimatedSprite2D
-@export var shoot_speed = 0.2
 @onready var MuzzleLeft= $MuzzleLeft
 @onready var MuzzleRight = $MuzzleRight
-var lastshoot = 0.0
 
+# Default shooting parameters
+var shots_per_burst = 1
+var burst_cooldown = 2.0
+var fire_rate = 0.1 # Time between shots in a burst
+var bullet_speed = 500 # Default bullet speed
+
+var burst_timer = 0.0
+var shots_fired_in_burst = 0
+var is_shooting_burst = false
+
+func set_config(config: Dictionary):
+	shots_per_burst = config.get("shots_per_burst", 1)
+	burst_cooldown = config.get("burst_cooldown", 2.0)
+	fire_rate = config.get("fire_rate", 0.1)
+	# Set speeds from config
+	speed = config.get("enemy_speed", 300)
+	bullet_speed = config.get("bullet_speed", 500)
+	# Reset timer to apply new cooldown
+	burst_timer = burst_cooldown 
 
 func _ready() -> void:
 	set_collision_layer_value(3, true)
@@ -17,30 +35,42 @@ func shoot(Muzzle):
 	var newBullet = bullet.instantiate()
 	newBullet.direction = +1
 	newBullet.shooter = self
+	# Pass the speed to the bullet instance
+	newBullet.set_speed(bullet_speed) 
 	newBullet.global_position = Muzzle.global_position
 	newBullet.rotation = rotation
 	newBullet.set_collision_layer_value(4, true)
 	newBullet.set_collision_mask_value(1, true)
 	get_tree().current_scene.add_child(newBullet)
-	#get_parent().add_child(newBullet)
 	newBullet.setAnimation("2")
 
 func _process(delta: float) -> void:
-	lastshoot += delta
-	if lastshoot >= shoot_speed:
+	burst_timer += delta
+	
+	if burst_timer >= burst_cooldown and not is_shooting_burst:
+		is_shooting_burst = true
+		shots_fired_in_burst = 0
+		start_burst()
+
+func start_burst():
+	while shots_fired_in_burst < shots_per_burst:
 		shoot(MuzzleLeft)
 		shoot(MuzzleRight)
-		lastshoot = 0.0
+		shots_fired_in_burst += 1
+		if shots_fired_in_burst < shots_per_burst:
+			await get_tree().create_timer(fire_rate).timeout
+	
+	is_shooting_burst = false
+	burst_timer = 0.0
+	
 func die():
 	queue_free()
+
 func _physics_process(delta):
 	var path_follower = get_parent()
 	
-	# Проверяем, что враг действительно внутри PathFollow2D
 	if path_follower is PathFollow2D:
-		# Двигаем вагончик вперед
 		path_follower.progress += speed * delta
 		
-		# Если доехали до конца пути
 		if path_follower.progress_ratio >= 1.0:
 			die()
