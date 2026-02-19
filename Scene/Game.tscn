@@ -32,14 +32,26 @@ func _process(delta: float) -> void:
 
 [sub_resource type="Curve2D" id="Curve2D_3xgnh"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 373.30768, -350.49628, 0, 0, 0, 0, 381.2051, -39.999985, 0, 0, 0, 0, 692.07684, 29.338379, 0, 0, 0, 0, 522.641, 151.44368, 0, 0, 0, 0, -26.58963, 146.64668)
+"points": PackedVector2Array(0, 0, 0, 0, 373.30768, -350.49628, 0, 0, 0, 0, 381.2051, -39.999985, 0, 0, 0, 0, 692.07684, 29.338379, 0, 0, 0, 0, 522.641, 151.44368, 0, 0, 0, 0, 200, 2200)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_new1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 100, -350, 0, 0, 0, 0, 120, -100, 0, 0, 0, 0, 250, 50, 0, 0, 0, 0, 50, 200, 0, 0, 0, 0, -100, 2200)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_new2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 800, -350, 0, 0, 0, 0, 600, -50, 0, 0, 0, 0, 900, 100, 0, 0, 0, 0, 400, 250, 0, 0, 0, 0, 1000, 2200)
 }
 point_count = 5
 
 [node name="Game" type="Node2D" unique_id=1620219483 node_paths=PackedStringArray("available_paths")]
 script = ExtResource("1_ivtx6")
 enemy_scene = ExtResource("2_u6khg")
-available_paths = [NodePath("Paths/Path2D")]
+available_paths = [NodePath("Paths/Path2D"), NodePath("Paths/Path2D2"), NodePath("Paths/Path2D3")]
 PlayerScene = ExtResource("1_6igcf")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1570107317]
@@ -92,9 +104,15 @@ position = Vector2(-148.96443, 438.72406)
 scale = Vector2(1.3928576, 2.293103)
 curve = SubResource("Curve2D_3xgnh")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Paths/Path2D" unique_id=2021876669]
-position = Vector2(373.30768, -350.49628)
-rotation = 1.545367
+[node name="Path2D2" type="Path2D" parent="Paths" unique_id=1481205842]
+position = Vector2(-148.96443, 438.72406)
+scale = Vector2(1.3928576, 2.293103)
+curve = SubResource("Curve2D_new1")
+
+[node name="Path2D3" type="Path2D" parent="Paths" unique_id=1481205843]
+position = Vector2(-148.96443, 438.72406)
+scale = Vector2(1.3928576, 2.293103)
+curve = SubResource("Curve2D_new2")
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=285188848]
 position = Vector2(542, 1751)
