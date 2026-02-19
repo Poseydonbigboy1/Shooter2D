@@ -25,6 +25,9 @@ func setAnimation(animationType: String):
 		anim2.show()
 	else: anim1.show()
 
+func set_speed(new_speed: float):
+	speedBullet = new_speed
+
 
 func _on_body_entered(area) -> void:
 	if area.has_method("take_damage"): #and area != shooter and shooter.is_in_group(""):

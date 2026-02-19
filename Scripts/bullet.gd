@@ -1,8 +1,7 @@
 extends Area2D
-@export var speedBullet = 1000
+var speed = 1000 # Default speed
 @onready var anim = $AnimatedSprite2D
-#@export var sprite: Texture2D
-#@export var direction = Vector2.UP 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	anim.play("attack")
@@ -10,8 +9,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	position -= transform.y * speedBullet * delta
+	position -= transform.y * speed * delta
 	
+func set_speed(new_speed: float):
+	speed = new_speed
+
 func setTexture(texture: Texture2D):
 	if texture: 
 		$Sprite2D.texture = texture
