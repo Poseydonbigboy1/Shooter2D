@@ -10,9 +10,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _on_button_play_pressed():
+func _on_texture_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scene/Game.tscn")
 
 
-func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scene/Game.tscn")
+func _on_button_quit_pressed() -> void:
+	get_tree().quit()

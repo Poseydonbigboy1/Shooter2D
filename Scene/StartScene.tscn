@@ -2,8 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://b5u3ecsb2ukx5" path="res://Img/Background/971e8b0662f5661fc41ad281bba4d669.jpg" id="1_4vj8e"]
 [ext_resource type="Script" uid="uid://pelvsb473kbi" path="res://Scripts/start_scene.gd" id="1_xs88s"]
-[ext_resource type="Texture2D" uid="uid://c8yrsxuct443o" path="res://Img/Buttons/Старт.png" id="2_vhwsv"]
-[ext_resource type="Texture2D" uid="uid://c3kbuutfivv0t" path="res://Img/Buttons/Выход.png" id="3_xs88s"]
+[ext_resource type="Texture2D" path="res://Img/Buttons/Старт.png" id="2_vhwsv"]
+[ext_resource type="Texture2D" uid="uid://b7xojyl8ect8r" path="res://Img/Buttons/Выход 1.png" id="3_72amt"]
+[ext_resource type="Texture2D" uid="uid://by080d4a1gwf8" path="res://Img/Buttons/Старт 1.png" id="5_72amt"]
 
 [node name="StartScene" type="Control" unique_id=1249887886]
 layout_mode = 3
@@ -20,25 +21,15 @@ offset_right = 1134.0
 offset_bottom = 2364.0
 texture = ExtResource("1_4vj8e")
 
-[node name="ButtonPlay" type="TextureButton" parent="." unique_id=843228576]
-layout_mode = 0
-offset_left = 212.0
-offset_top = 652.0
-offset_right = 904.0
-offset_bottom = 1344.0
-texture_normal = ExtResource("2_vhwsv")
-ignore_texture_size = true
-stretch_mode = 6
-
 [node name="ButtonQuit" type="TextureButton" parent="." unique_id=870600119]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 925.0
-offset_right = 894.4851
-offset_bottom = 1529.0
-texture_normal = ExtResource("3_xs88s")
+offset_left = 319.0
+offset_top = 973.0
+offset_right = 793.0
+offset_bottom = 1246.9885
+texture_normal = ExtResource("3_72amt")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 0
 
 [node name="Button" type="Button" parent="." unique_id=1020532075]
 visible = false
@@ -50,4 +41,18 @@ offset_bottom = 1641.0
 scale = Vector2(0.73, 0.73)
 icon = ExtResource("2_vhwsv")
 
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1877791835]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 26.998001
+anchor_bottom = 48.001003
+offset_left = 319.0
+offset_top = 494.0
+offset_right = -285.0254
+offset_bottom = -1152.0402
+texture_normal = ExtResource("5_72amt")
+stretch_mode = 0
+
+[connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
