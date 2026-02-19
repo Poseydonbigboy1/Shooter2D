@@ -5,14 +5,24 @@ extends Node2D
 @export var PlayerScene: PackedScene
 @onready var PlayerSpawnMarker = $PlayerSpawn
 
-
-var current_wave = 0
+var level_generator = LevelGenerator.new()
 var enemies_alive = 0 # Счетчик живых врагов
-var is_wave_spawning = false # Чтобы не запустить волну дважды
-var need_new_wave = false
 
-func spawn_enemy():
-	var choosen_path = available_paths.pick_random()
+func _ready() -> void:
+	add_child(level_generator)
+	level_generator.load_level_data("res://level_data.json")
+	level_generator.spawn_enemy.connect(spawn_enemy)
+	
+	var Player = PlayerScene.instantiate()
+	Player.global_position = PlayerSpawnMarker.global_position
+	get_tree().current_scene.add_child(Player)
+	
+	start_next_wave()
+
+func spawn_enemy(choosen_path: Path2D = null): # Path is now optional
+	if choosen_path == null:
+		choosen_path = available_paths.pick_random()
+		
 	var follower = PathFollow2D.new()
 	follower.loop = false
 	follower.rotates = false
@@ -27,40 +37,21 @@ func spawn_enemy():
 func _on_enemy_exited():
 	enemies_alive -= 1
 	
-	# Если врагов не осталось И спаун волны закончен (все уже вышли)
 	if enemies_alive == 0:
-		print("Волна зачищена! Следующая через 3 секунд...")
-		if current_wave <=3:
+		print("Волна зачищена!")
+		if level_generator.has_more_waves():
+			print("Следующая через 3 секунды...")
 			start_timer_for_next_wave()
+		else:
+			print("Все волны пройдены! Победа!")
 
 func start_timer_for_next_wave():
-	# Создаем таймер на 3 секунд
 	if is_inside_tree():
 		await get_tree().create_timer(3.0).timeout
-		# Когда время вышло — запускаем новую волну
 		start_next_wave()
 
-
-func _ready() -> void:
-	var Player = PlayerScene.instantiate()
-	Player.global_position = PlayerSpawnMarker.global_position
-	get_tree().current_scene.add_child(Player)
-	start_next_wave()
 func start_next_wave():
-	current_wave += 1
-	# Формула количества: n + 1 (если волна 1 -> 2 врага, волна 2 -> 3 врага)
-	var count_to_spawn = current_wave + 1
-	print("Старт волны №", current_wave, ". Врагов: ", count_to_spawn)
-	
-	is_wave_spawning = true
-	
-	# Цикл создания врагов с задержкой
-	for i in range(count_to_spawn):
-		spawn_enemy()
-		# Ждем 1 секунду перед следующим врагом (await)
-		await get_tree().create_timer(1.0).timeout
-	
-	is_wave_spawning = false
+	level_generator.start_next_wave()
 	
 func _process(delta: float) -> void:
 	pass
